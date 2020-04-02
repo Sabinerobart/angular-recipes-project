@@ -5,10 +5,6 @@
 </div>
 <hr />
 <div class="row">
-  <app-recipe-item
-    *ngFor="let recipeEl of recipes; let i = index"
-    class="col-xs-12"
-    [recipe]="recipeEl"
-    (selectedRecipe)="onRecipeSelected(recipeEl)"
-  ></app-recipe-item>
+  <app-recipe-item *ngFor="let recipeEl of recipes; let i = index" class="col-xs-12" [recipe]="recipeEl">
+  </app-recipe-item>
 </div>
