@@ -2,7 +2,7 @@
   <div class="col-xs-12">
     <!-- 'ngForm' in the local ref #f gives access to the form's javascript object that we can call
     when submitting the form (submit function's argument) -->
-    <form (ngSubmit)="onAddItem(f)" #f="ngForm">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
       <div class="col-sm-5 form-group">
         <label for="name">Name</label>
         <input type="text" id="name" class="form-control" name="name" ngModel required />
