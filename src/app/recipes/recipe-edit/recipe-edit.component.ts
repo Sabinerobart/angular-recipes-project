@@ -44,4 +44,8 @@ export class RecipeEditComponent implements OnInit {
       'imageDescr': new FormControl(recipeDescr)
     })
   }
+
+  onSubmit() {
+    console.log(this.recipeForm)
+  }
 }
