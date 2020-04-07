@@ -1,6 +1,6 @@
 import {
   Component,
-  OnInit, OnDestroy
+  OnInit, OnDestroy, ViewChild
 } from "@angular/core";
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -14,6 +14,7 @@ import { ShoppingListService } from '../shopping-list.service';
   styleUrls: ["./shopping-edit.component.css"]
 })
 export class ShoppingEditComponent implements OnInit, OnDestroy {
+  @ViewChild('f', { static: false }) shoppingListForm: NgForm;
   subscription: Subscription;
   editMode: boolean = false;
   editedItemIndex: number;
@@ -27,6 +28,10 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
         this.editedItemIndex = index;
         this.editMode = true;
         this.editedItem = this.shoppingListService.getIngredient(index);
+        this.shoppingListForm.setValue({
+          name: this.editedItem.name,
+          amount: this.editedItem.amount
+        })
       }
     );
   }
