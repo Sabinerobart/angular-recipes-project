@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
-import { Recipe } from './recipes/recipe.model';
-import { RecipeService } from './recipes/recipe.service';
+import { Recipe } from '../recipes/recipe.model';
+import { RecipeService } from '../recipes/recipe.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +21,12 @@ export class DataService {
 
   fetchRecipes() {
     // Add type on the .get() to inform typescipt that the response will be in the form of an array of recipes (Recipe[])
-    this.http.get<Recipe[]>('https://ng-recipes-96b5e.firebaseio.com/recipes.json').pipe(map(recipes => {
+    return this.http.get<Recipe[]>('https://ng-recipes-96b5e.firebaseio.com/recipes.json').pipe(map(recipes => {
       return recipes.map(recipe => {
         return { ...recipe, ingredients: recipe.ingredients ? recipe.ingredients : [] };
       });
-    }))
-      .subscribe(recipes => {
-        this.recipeService.setRecipes(recipes);
-      })
+    }), tap(
+      recipes => this.recipeService.setRecipes(recipes)
+    ))
   }
 }

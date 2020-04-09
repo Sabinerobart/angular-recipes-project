@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { DataService } from '../data.service';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: "app-header",
@@ -14,6 +14,6 @@ export class HeaderComponent {
   }
 
   onFetchData() {
-    this.dataService.fetchRecipes();
+    this.dataService.fetchRecipes().subscribe();
   }
 }
