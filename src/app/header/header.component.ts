@@ -8,7 +8,12 @@ import { DataService } from '../data.service';
 export class HeaderComponent {
 
   constructor(private dataService: DataService) { }
+
   onSaveData() {
     this.dataService.storeRecipes();
+  }
+
+  onFetchData() {
+    this.dataService.fetchRecipes();
   }
 }
