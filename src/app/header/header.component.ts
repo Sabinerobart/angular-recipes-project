@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { DataService } from '../data.service';
 
 @Component({
   selector: "app-header",
@@ -6,4 +7,8 @@ import { Component } from "@angular/core";
 })
 export class HeaderComponent {
 
+  constructor(private dataService: DataService) { }
+  onSaveData() {
+    this.dataService.storeRecipes();
+  }
 }
