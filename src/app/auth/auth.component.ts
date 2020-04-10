@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 
 import { AuthService, AuthResponseDate } from './auth.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -15,7 +16,7 @@ export class AuthComponent implements OnInit {
   isLoading: boolean = false;
   error: string = null;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -33,13 +34,17 @@ export class AuthComponent implements OnInit {
 
     let authObs: Observable<AuthResponseDate>;
 
+    this.isLoading = true;
     if (this.isLoginMode) {
       authObs = this.authService.login(email, password);
     } else {
-      this.isLoading = true;
       authObs = this.authService.signup(email, password);
     }
-    authObs.subscribe(res => console.log(res), errorMessage => {
+    authObs.subscribe(res => {
+      console.log(res);
+      this.isLoading = false;
+      this.router.navigate(['/recipes']);
+    }, errorMessage => {
       // Without the pipe in the auth.service :
       // switch (err.error.error.message) {
       //   case 'EMAIL_EXISTS':
