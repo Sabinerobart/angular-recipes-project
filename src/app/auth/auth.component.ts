@@ -34,10 +34,15 @@ export class AuthComponent implements OnInit {
       //...
     } else {
       this.isLoading = true;
-      this.authService.signup(email, password).subscribe(res => console.log(res), err => {
-        console.log(err);
-        this.error = 'An error occured !';
+      this.authService.signup(email, password).subscribe(res => console.log(res), errorMessage => {
+        console.log(errorMessage);
+        this.error = errorMessage;
         this.isLoading = false;
+        // Without the pipe in the auth.service :
+        // switch (err.error.error.message) {
+        //   case 'EMAIL_EXISTS':
+        //     this.error = 'This email already exists !';
+        // }
       })
     }
     form.reset();
