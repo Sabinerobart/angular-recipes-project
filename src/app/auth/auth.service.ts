@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
-import { throwError, Subject } from 'rxjs';
+import { throwError, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from './user.model';
 import { Router } from '@angular/router';
@@ -22,8 +22,7 @@ export interface AuthResponseDate {
 })
 export class AuthService {
 
-  user = new Subject<User>();
-
+  user = new BehaviorSubject<User>(null); // Get access to the previously emitted values, even before having subscribed to it;
 
   constructor(private http: HttpClient, private router: Router) { }
 
