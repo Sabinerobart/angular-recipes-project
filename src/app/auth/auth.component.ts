@@ -41,8 +41,8 @@ export class AuthComponent implements OnInit {
       authObs = this.authService.signup(email, password);
     }
     authObs.subscribe(res => {
+      this.isLoading = true;
       console.log(res);
-      this.isLoading = false;
       this.router.navigate(['/recipes']);
     }, errorMessage => {
       // Without the pipe in the auth.service :
@@ -52,8 +52,8 @@ export class AuthComponent implements OnInit {
       // }
       console.log(errorMessage);
       this.error = errorMessage;
-      this.isLoading = false;
     })
+    this.isLoading = false;
     form.reset();
     this.error = '';
   }

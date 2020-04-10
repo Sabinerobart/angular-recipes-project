@@ -23,10 +23,7 @@ export class DataService {
 
   fetchRecipes() {
     // Add type on the .get() to inform typescipt that the response will be in the form of an array of recipes (Recipe[])
-    return this.authService.user.pipe(take(1), exhaustMap(user => {
-      return this.http.get<Recipe[]>('https://ng-recipes-96b5e.firebaseio.com/recipes.json',
-        { params: new HttpParams().set('auth', user.token) })
-    }), map(recipes => {
+    return this.http.get<Recipe[]>('https://ng-recipes-96b5e.firebaseio.com/recipes.json').pipe(map(recipes => {
       return recipes.map(recipe => {
         return {
           ...recipe,
@@ -36,8 +33,5 @@ export class DataService {
     }),
       tap(recipes => this.recipeService.setRecipes(recipes))
     );
-    // take(1) takes 1 value on the observable, then automatically unsubscribes
-    // exhaustMap waits for the 1st observable to complete before executing the next one;
-
   }
 }
