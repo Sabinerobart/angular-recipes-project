@@ -20,7 +20,12 @@ import { RecipeEditComponent } from './recipe-edit/recipe-edit.component';
     RecipeStartComponent,
     RecipeEditComponent,
   ],
-  imports: [RouterModule, CommonModule, ReactiveFormsModule, RecipesRoutingModule]
+  imports: [
+    RouterModule,
+    CommonModule,
+    ReactiveFormsModule,
+    RecipesRoutingModule
+  ]
 })
 export class RecipesModule {
 
