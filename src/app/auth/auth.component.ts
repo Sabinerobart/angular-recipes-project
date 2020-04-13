@@ -63,7 +63,6 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
     authObs.subscribe(res => {
       this.isLoading = true;
-      console.log(res);
       this.router.navigate(['/recipes']);
     }, errorMessage => {
       // Without the pipe in the auth.service :
