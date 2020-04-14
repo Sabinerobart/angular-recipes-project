@@ -1,7 +1,13 @@
-# RecipesProject
+> # <div align="center">RecipesAngular </div>
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
 
+> # nrgx || !ngrx ?
+
+  - Implementation of Ngrx global state can be found on the `ngrx` branch.
+
+  - The `master` branch contains a classic state management using services
+___
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
