@@ -25,7 +25,6 @@ export interface AuthResponseDate {
 })
 export class AuthService {
 
-  // user = new BehaviorSubject<User>(null); // Get access to the previously emitted values, even before having subscribed to it;
   private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router, private store: Store<fromApp.AppState>) { }
