@@ -22,11 +22,12 @@ export class AuthComponent implements OnInit, OnDestroy {
   error: string = null;
   @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
   private closeSub: Subscription;
+  private storeSub: Subscription;
 
   constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver, private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-    this.store.select('auth').subscribe(authState => {
+    this.storeSub = this.store.select('auth').subscribe(authState => {
       this.error = authState.authError;
       if (this.error) {
         this.showErrorAlert(this.error);
@@ -35,13 +36,12 @@ export class AuthComponent implements OnInit, OnDestroy {
     })
   }
 
-
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
 
   onHandleError() {
-    this.error = null;
+    this.store.dispatch(new AuthActions.ClearError());
   }
 
   private showErrorAlert(errorMessage: string) {
@@ -65,21 +65,20 @@ export class AuthComponent implements OnInit, OnDestroy {
     const email = form.value.email;
     const password = form.value.password;
 
-    let authObs: Observable<AuthResponseDate>;
-
-    this.isLoading = true;
     if (this.isLoginMode) {
       this.store.dispatch(new AuthActions.LoginStart({ email: email, password: password }));
     } else {
-      authObs = this.authService.signup(email, password);
+      this.store.dispatch(new AuthActions.SignupStart({ email: email, password: password }))
     }
     form.reset();
-    this.error = '';
   }
 
   ngOnDestroy() {
     if (this.closeSub) {
       this.closeSub.unsubscribe();
+    }
+    if (this.storeSub) {
+      this.storeSub.unsubscribe();
     }
   }
 }
